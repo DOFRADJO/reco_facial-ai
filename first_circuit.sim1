@@ -1,0 +1,47 @@
+<circuit version="1.1.0-SR2" rev="260411" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Subcircuit" CircId="Uno-1" mainComp="false" Show_id="true" Show_Val="false" Pos="-80,-188" rotation="0" hflip="1" vflip="1" label="Uno-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="false">
+<mainCompProps MainCompId="mega328-109" Frequency="16 MHz" Auto_Load="false" saveEepr="true" MainMcu="true" SerialMon="-1" />
+</item>
+
+<item itemtype="SerialPort" CircId="SerialPort-2" mainComp="false" ShowProp="Baudrate" Show_id="true" Show_Val="true" Pos="-280,-212" rotation="-360" hflip="1" vflip="1" label="SerialPort-2" idLabPos="-20,-32" labelrot="0" valLabPos="-16,20" valLabRot="0" Auto="false" Port="/dev/pts/8" Baudrate="9600 _Bd" DataBits="8 _bits" StopBits="1 _bits" SerialMon="false" />
+
+<item itemtype="Led" CircId="Led-4" mainComp="false" ShowProp="Color" Show_id="false" Show_Val="true" Pos="-232,-112" rotation="-180" hflip="1" vflip="1" label="Led-4" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Green" Grounded="true" Threshold="3.5 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="Led" CircId="Led-5" mainComp="false" ShowProp="Color" Show_id="false" Show_Val="true" Pos="-308,-64" rotation="-180" hflip="1" vflip="1" label="Led-5" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Red" Grounded="true" Threshold="1.8 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="RelaySPST" CircId="RelaySPST-12" mainComp="false" Show_id="false" Show_Val="false" Pos="84,272" rotation="0" hflip="1" vflip="1" label="RelaySPST-12" idLabPos="-16,8" labelrot="0" valLabPos="-16,6" valLabRot="0" Norm_Close="false" DT="false" Poles="1" IOn="20 mA" IOff="10 mA" Inductance="100 mH" Rcoil="100 Ω" ReaStep="0 ns" />
+
+<item itemtype="Resistor" CircId="Resistor-19" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-152,-140" rotation="0" hflip="1" vflip="1" label="Resistor-19" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="220 Ω" />
+
+<item itemtype="Resistor" CircId="Resistor-20" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-184,-84" rotation="0" hflip="1" vflip="1" label="Resistor-20" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="220 Ω" />
+
+<item itemtype="Led" CircId="Led-21" mainComp="false" ShowProp="Color" Show_id="false" Show_Val="true" Pos="-264,-4" rotation="180" hflip="1" vflip="1" label="Led-21" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Orange" Grounded="true" Threshold="2 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="Resistor" CircId="Resistor-22" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-208,-24" rotation="0" hflip="1" vflip="1" label="Resistor-22" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="220 Ω" />
+
+<item itemtype="AudioOut" CircId="AudioOut-23" mainComp="false" Show_id="false" Show_Val="false" Pos="-84,120" rotation="0" hflip="1" vflip="1" label="AudioOut-23" idLabPos="-20,-36" labelrot="0" valLabPos="-16,20" valLabRot="0" Buzzer="true" Impedance="8 Ω" Frequency="1 kHz" />
+
+<item itemtype="Ground" CircId="Ground-24" mainComp="false" Show_id="false" Show_Val="false" Pos="-120,188" rotation="0" hflip="1" vflip="1" label="Ground-24" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Connector" uid="Connector-37" startpinid="Uno-1-5" endpinid="Resistor-19-rPin" pointList="-72,-132,-136,-132,-136,-140" />
+
+<item itemtype="Connector" uid="Connector-38" startpinid="Uno-1-6" endpinid="Resistor-20-rPin" pointList="-72,-124,-168,-124,-168,-84" />
+
+<item itemtype="Connector" uid="Connector-41" startpinid="Uno-1-1" endpinid="SerialPort-2-pin1" pointList="-72,-164,-320,-164,-320,-204" />
+
+<item itemtype="Connector" uid="Connector-42" startpinid="Uno-1-0" endpinid="SerialPort-2-pin0" pointList="-72,-172,-136,-172,-136,-248,-320,-248,-320,-220" />
+
+<item itemtype="Connector" uid="Connector-44" startpinid="Resistor-19-lPin" endpinid="Led-4-lPin" pointList="-168,-140,-212,-140,-212,-112,-216,-112" />
+
+<item itemtype="Connector" uid="Connector-45" startpinid="Resistor-20-lPin" endpinid="Led-5-lPin" pointList="-200,-84,-292,-84,-292,-64" />
+
+<item itemtype="Connector" uid="Connector-47" startpinid="Resistor-22-lPin" endpinid="Led-21-lPin" pointList="-224,-24,-248,-24,-248,-4" />
+
+<item itemtype="Connector" uid="Connector-48" startpinid="Uno-1-7" endpinid="Resistor-22-rPin" pointList="-72,-116,-164,-116,-164,-24,-192,-24" />
+
+<item itemtype="Connector" uid="Connector-49" startpinid="Uno-1-4" endpinid="AudioOut-23-lPin" pointList="-72,-140,-132,-140,-132,-148,-332,-148,-332,112,-100,112" />
+
+<item itemtype="Connector" uid="Connector-50" startpinid="AudioOut-23-rPin" endpinid="Ground-24-Gnd" pointList="-100,120,-120,120,-120,172" />
+
+</circuit>

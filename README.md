@@ -1,319 +1,479 @@
-# Système de Reconnaissance Faciale pour Biométrie Intelligente
+# Guide d'Installation, de Compilation et de Simulation
 
-Ce projet est un système de reconnaissance faciale conçu pour fonctionner **même sans carte graphique (CPU)**.
+## Projet : Système de Reconnaissance Faciale pour Biométrie Intelligente
 
-Il utilise :
+Auteur : Tambou Donald
 
-* **YOLOv10n-face** pour la détection ultra-rapide des visages.
-* **FaceNet** pour extraire les caractéristiques uniques d'un visage (embeddings).
-* **SVM (Support Vector Machine)** pour classifier et identifier la personne.
 
-## Prérequis
+# 1. Objectif du Projet
 
-Assurez-vous que votre environnement virtuel Python est activé.
+L'objectif de ce projet est de développer un système de contrôle d'accès biométrique capable :
+
+* d'identifier un utilisateur par reconnaissance faciale ;
+* d'autoriser ou de refuser l'accès ;
+* de communiquer avec un microcontrôleur Arduino ;
+* de simuler l'ouverture d'une porte avant l'acquisition du matériel réel.
+
+Le système est composé de deux parties :
+
+1. Un module logiciel de reconnaissance faciale développé en Python.
+2. Un module embarqué simulé sous SimulIDE représentant le système de contrôle de porte.
+
+
+# 2. Architecture Générale
+
+Le système repose sur les technologies suivantes :
+
+## Partie Intelligence Artificielle
+
+* YOLOv10n-face pour la détection des visages.
+* FaceNet pour l'extraction des caractéristiques biométriques.
+* SVM (Support Vector Machine) pour la classification des individus.
+
+## Partie Embarquée
+
+* Arduino Uno.
+* Liaison série virtuelle.
+* SimulIDE pour la simulation électronique.
+
+
+# 3. Préparation de l'Environnement Python
+
+## Création de l'environnement virtuel
 
 ```bash
-source ~/recon-facial-py311/venv/bin/activate
+python3 -m venv venv
 ```
 
-Les dépendances principales du projet sont :
-
-* opencv-python
-* numpy
-* Pillow
-* scikit-learn
-* ultralytics
-* keras-facenet
-* tensorflow (version CPU)
-
-## Utilisation
-
-Nous avons créé un script Python dédié et optimisé pour la capture vidéo. Il remplace le code contenu à la fin du Notebook qui comportait des erreurs et surchargait le processeur.
-
-### Lancer la Reconnaissance Faciale en Temps Réel
+Activation chez moi c'est (source ~/recon-facial-py311/venv/bin/activate):
 
 ```bash
-python inference.py
+source venv/bin/activate
 ```
 
-### Optimisations CPU incluses
-
-1. **Frame Skipping** : le modèle lourd ne s'exécute qu'une image sur 3.
-2. **Désactivation forcée du GPU** : `CUDA_VISIBLE_DEVICES="-1"`.
-3. **Redimensionnement dynamique** : l'image est réduite à 480 px avant détection.
-
-### Quitter l'application
-
-Appuyez sur la touche **q** lorsque la fenêtre de la webcam est active.
-
----
-
-# Simulation de l'Ouverture de Porte avec SimulIDE
-
-Cette simulation permet de tester l'ouverture d'une porte virtuelle avant l'achat du matériel réel (Arduino, Relais, Serrure électrique, etc.).
 
 ## Installation des dépendances
 
 ```bash
-pip install pyserial
-sudo apt update
-sudo apt install socat
+pip install \
+opencv-python \
+numpy \
+Pillow \
+scikit-learn \
+ultralytics \
+keras-facenet \
+tensorflow
 ```
 
-## Installation de SimulIDE (Flatpak)
 
-Installer Flatpak :
-
-```bash
-sudo apt install flatpak
-```
-
-Ajouter le dépôt Flathub :
-
-```bash
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-```
-
-Installer SimulIDE :
-
-```bash
-flatpak install flathub com.simulide.simulide -y
-```
-
-Lancer SimulIDE :
-
-```bash
-flatpak run com.simulide.simulide
-```
-
-## Autoriser l'accès aux ports série sous Flatpak
-
-Si SimulIDE est installé via Flatpak, il faut lui donner accès aux périphériques du système :
-
-```bash
-flatpak override --user --filesystem=host com.simulide.simulide
-flatpak override --user --device=all com.simulide.simulide
-```
-
-Redémarrer ensuite SimulIDE.
-
----
-
-## Création des Ports Série Virtuels
-
-Dans un nouveau terminal, exécuter :
-
-```bash
-socat -d -d pty,raw,echo=0,link=/tmp/ttyV0 pty,raw,echo=0,link=/tmp/ttyV1
-```
-
-Exemple de sortie :
+# 4. Structure du Projet
 
 ```text
-2026/06/05 23:37:13 socat[2461569] N PTY is /dev/pts/7
-2026/06/05 23:37:13 socat[2461569] N PTY is /dev/pts/8
-2026/06/05 23:37:13 socat[2461569] N starting data transfer loop with FDs [5,5] and [7,7]
+reco_facial-ai/
+│
+├── dataset/
+├── embeddings_entrainement.npy
+├── embeddings_test.npy
+├── classificateur.pkl
+├── label_encoder.pkl
+├── inference.py
+├── yolov10n-face.pt
+├── Arduino/
+│   └── first/
+│       ├── first.ino
+│       └── build/
+│
+├── code_arduino_porte/
+│   └── code_arduino_porte.ino
+│
+├── first.simu
+├── first_circuit.sim1
+└── README.md
 ```
 
-Conserver cette fenêtre ouverte pendant toute la simulation.
 
-Les liens créés seront :
+# 5. Installation de SimulIDE
 
-```text
-/tmp/ttyV0 -> /dev/pts/7
-/tmp/ttyV1 -> /dev/pts/8
-```
+## Méthode retenue
 
-Vérification :
+Une installation manuelle a été utilisée afin de disposer d'une version récente et compatible avec Linux.
+
+Téléchargement :
 
 ```bash
-ls -l /tmp/ttyV*
+wget https://simulide.com/p/downloads.html
 ```
+
+Extraction :
+
+```bash
+tar -xvf SimulIDE_0.3.10-SR2-Lin64.tar.gz
+```
+
+Renommage :
+
+```bash
+mv SimulIDE_0.3.10-SR2-Lin64 simulide
+```
+
+
+# 6. Installation des Dépendances SimulIDE
+
+Lors du premier lancement, SimulIDE signalait l'absence de bibliothèques Qt.
 
 Exemple :
 
 ```text
-lrwxrwxrwx 1 td2f td2f 10 Jun  5 23:37 /tmp/ttyV0 -> /dev/pts/7
-lrwxrwxrwx 1 td2f td2f 10 Jun  5 23:37 /tmp/ttyV1 -> /dev/pts/8
+libQt5SerialPort.so.5
 ```
 
----
+Installation :
 
-## Vérification de la communication série
+```bash
+sudo apt update
+
+sudo apt install \
+libqt5serialport5 \
+libqt5multimedia5 \
+libqt5multimediawidgets5
+```
+
+
+# 7. Création des Ports Série Virtuels
+
+Afin de simuler la communication entre Python et Arduino, des ports série virtuels ont été créés.
+
+Installation :
+
+```bash
+sudo apt install socat
+```
+
+Création du pont série :
+
+```bash
+socat -d -d \
+pty,raw,echo=0,link=/tmp/ttyV0 \
+pty,raw,echo=0,link=/tmp/ttyV1
+```
+
+Résultat :
+
+```text
+/tmp/ttyV0
+/tmp/ttyV1
+```
+
+Ces deux ports sont reliés entre eux.
+
+
+# 8. Vérification du Fonctionnement de Socat
 
 Terminal 1 :
 
 ```bash
-socat -d -d pty,raw,echo=0,link=/tmp/ttyV0 pty,raw,echo=0,link=/tmp/ttyV1
+socat -d -d \
+pty,raw,echo=0,link=/tmp/ttyV0 \
+pty,raw,echo=0,link=/tmp/ttyV1
 ```
 
 Terminal 2 :
 
 ```bash
-cat /dev/pts/7
+cat /tmp/ttyV0
 ```
 
 Terminal 3 :
 
 ```bash
-echo TEST > /dev/pts/8
+echo TEST > /tmp/ttyV1
 ```
 
-Si tout fonctionne correctement :
+Résultat attendu :
 
 ```text
 TEST
 ```
 
-doit apparaître dans le Terminal 2.
 
----
+# 9. Installation d'Arduino CLI
 
-## Configuration de SimulIDE
+L'installation du paquet Arduino Debian a montré certaines incompatibilités avec la chaîne de compilation AVR.
 
-### Ajouter les composants
+La solution retenue a été Arduino CLI.
 
-* Arduino UNO
+Installation :
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+```
+
+Déplacement du binaire :
+
+```bash
+sudo mv bin/arduino-cli /usr/local/bin/
+```
+
+Vérification :
+
+```bash
+arduino-cli version
+```
+
+
+# 10. Installation du Core Arduino
+
+Initialisation :
+
+```bash
+arduino-cli config init
+```
+
+Mise à jour de l'index :
+
+```bash
+arduino-cli core update-index
+```
+
+Installation du support Arduino Uno :
+
+```bash
+arduino-cli core install arduino:avr
+```
+
+Vérification :
+
+```bash
+arduino-cli core list
+```
+
+
+# 11. Difficultés Rencontrées
+
+## Première Difficulté
+
+L'installation du paquet :
+
+```bash
+sudo apt install arduino
+```
+
+a provoqué plusieurs erreurs de compilation.
+
+Exemple :
+
+```text
+DECIMAL_DIG was not declared in this scope
+```
+
+Ces erreurs provenaient d'incompatibilités entre :
+
+* Arduino IDE Debian ;
+* AVR-GCC ;
+* Arduino Core AVR.
+
+Solution :
+
+Utilisation d'Arduino CLI.
+
+
+## Deuxième Difficulté
+
+Arduino CLI impose une structure stricte :
+
+```text
+NomDuDossier/
+└── NomDuDossier.ino
+```
+
+Une erreur apparaissait lorsque :
+
+```text
+reco_facial-ai/
+└── first.ino
+```
+
+était utilisé.
+
+Solution :
+
+```text
+Arduino/
+└── first/
+    └── first.ino
+```
+
+
+## Troisième Difficulté
+
+La présence simultanée de :
+
+```text
+first.ino
+test.ino
+```
+
+dans le même dossier provoquait :
+
+```text
+redefinition of setup()
+redefinition of loop()
+```
+
+car Arduino fusionne tous les fichiers .ino d'un même répertoire.
+
+Solution :
+
+Un seul sketch principal par dossier.
+
+
+# 12. Compilation du Firmware Arduino
+
+Se placer dans le dossier :
+
+```bash
+cd Arduino/first
+```
+
+Compilation :
+
+```bash
+arduino-cli compile \
+--fqbn arduino:avr:uno \
+--output-dir build \
+.
+```
+
+Résultat :
+
+```text
+Sketch uses 998 bytes (3%)
+Global variables use 9 bytes (0%)
+```
+
+Fichiers générés :
+
+```text
+build/
+├── first.ino.hex
+├── first.ino.with_bootloader.hex
+└── first.ino.elf
+```
+
+Le fichier utilisé dans SimulIDE est :
+
+```text
+build/first.ino.hex
+```
+
+
+# 13. Configuration de SimulIDE
+
+Composants utilisés :
+
+* Arduino Uno
 * Serial Port
 * LED Verte
 * LED Rouge
-* Buzzer (Sounder)
-* Relais ou LED représentant la porte
+* Buzzer
+* Relais
 
-### Connexions Arduino
+Connexions :
 
-| Broche Arduino | Fonction                 |
-| -------------- | ------------------------ |
-| D7             | Relais / Ouverture Porte |
-| D6             | LED Verte                |
-| D5             | LED Rouge                |
-| D4             | Buzzer                   |
+| Broche | Fonction  |
+| ------ | --------- |
+| D7     | Relais    |
+| D6     | LED Verte |
+| D5     | LED Rouge |
+| D4     | Buzzer    |
 
-### Configuration du Serial Port
-
-Baudrate :
+Configuration du port série :
 
 ```text
-9600
+9600 bauds
 ```
 
-Si vous utilisez SimulIDE natif :
+Port :
 
 ```text
 /tmp/ttyV1
 ```
 
-Si vous utilisez SimulIDE Flatpak :
-
-```text
-/dev/pts/8
-```
-
-Puis cliquer sur **Open**.
-
 ---
 
-## Chargement du Programme Arduino
+# 14. Exécution de la Simulation
 
-Ouvrir :
+Lancement de Socat :
 
-```text
-code_arduino_porte/code_arduino_porte.ino
+```bash
+socat -d -d \
+pty,raw,echo=0,link=/tmp/ttyV0 \
+pty,raw,echo=0,link=/tmp/ttyV1
 ```
 
-Compiler puis lancer la simulation.
+Lancement de SimulIDE :
 
----
+```bash
+./simulide
+```
 
-## Lancer le Système de Reconnaissance Faciale
+Chargement du firmware :
 
-Dans un nouveau terminal :
+```text
+build/first.ino.hex
+```
+
+
+# 15. Exécution du Système Biométrique
+
+Activation de l'environnement :
+
+```bash
+source venv/bin/activate
+```
+
+Lancement :
 
 ```bash
 python inference.py
 ```
 
-Le script Python envoie automatiquement :
+Lorsqu'un utilisateur est reconnu :
 
 ```text
 OPEN
 ```
 
-sur :
+est envoyé sur :
 
 ```text
 /tmp/ttyV0
 ```
 
-qui correspond à :
+Le message traverse le lien série créé par Socat et est reçu sur :
 
 ```text
-/dev/pts/7
+/tmp/ttyV1
 ```
 
-Le message traverse le lien créé par `socat` et arrive dans SimulIDE sur :
+par l'Arduino simulé.
 
-```text
-/dev/pts/8
-```
 
-Lorsque l'utilisateur est reconnu :
+# 16. Résultat Final
 
-* La LED Verte s'allume.
-* Le relais s'active.
-* Le buzzer peut émettre un signal.
-* La porte virtuelle s'ouvre.
+Lorsque le visage est reconnu :
 
----
+* la LED verte s'allume ;
+* le relais s'active ;
+* le buzzer émet un signal ;
+* la porte virtuelle s'ouvre.
 
-## Dépannage
+Lorsque le visage n'est pas reconnu :
 
-### Vérifier les ports série disponibles
+* la LED rouge s'allume ;
+* l'accès est refusé ;
+* aucun ordre d'ouverture n'est transmis.
 
-```bash
-ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null
-```
+Le système valide ainsi le fonctionnement complet de la chaîne :
 
-### Vérifier les pseudo-terminaux créés par socat
-
-```bash
-ls -l /tmp/ttyV*
-```
-
-### Vérifier les pseudo-terminaux visibles dans Flatpak
-
-```bash
-flatpak run --command=sh com.simulide.simulide
-```
-
-Puis :
-
-```bash
-ls -l /dev/pts
-```
-
-### Vérifier les permissions Flatpak
-
-```bash
-flatpak override --user --filesystem=host com.simulide.simulide
-flatpak override --user --device=all com.simulide.simulide
-```
-
----
-
-## Réentraînement du Modèle
-
-Si vous souhaitez ajouter de nouveaux utilisateurs ou améliorer la précision du modèle :
-
-Utilisez le notebook :
-
-```text
-reconnaissance faciale.ipynb
-```
-
-La première partie du notebook permet :
-
-* la collecte des images,
-* l'extraction des embeddings FaceNet,
-* l'entraînement du classificateur SVM,
-* la sauvegarde des nouveaux modèles.
+Reconnaissance Faciale → Classification → Communication Série → Arduino → Contrôle d'Accès.

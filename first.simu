@@ -1,0 +1,48 @@
+<circuit noLinStep="10" speed="1000000" type="simulide_0.1" reactStep="50" animate="0" noLinAcc="5">
+ 
+Led-7: 
+<item y="-100" Color="0" Resistance="0.6" vflip="1" valLabRot="0" valLabelx="0" valLabely="0" rotation="-180" Grounded="true" MaxCurrent="0.03" id="Led-7" itemtype="Led" x="-588" objectName="Led-7" labelrot="0" labelx="-16" Show_id="true" labely="-24" hflip="1" Threshold="2.4"/>
+ 
+Led-6: 
+<item y="-148" Color="1" Resistance="0.6" vflip="1" valLabRot="0" valLabelx="0" valLabely="0" rotation="-180" Grounded="true" MaxCurrent="0.03" id="Led-6" itemtype="Led" x="-588" objectName="Led-6" labelrot="0" labelx="-16" Show_id="true" labely="-24" hflip="1" Threshold="2.4"/>
+ 
+Led-5: 
+<item y="-188" Color="2" Resistance="0.6" vflip="1" valLabRot="0" valLabelx="0" valLabely="0" rotation="-180" Grounded="true" MaxCurrent="0.03" id="Led-5" itemtype="Led" x="-588" objectName="Led-5" labelrot="0" labelx="-16" Show_id="true" labely="-24" hflip="1" Threshold="2.4"/>
+ 
+Arduino Uno-4: 
+<item y="-220" Mhz="16" vflip="1" valLabRot="0" valLabelx="0" Program="" valLabely="0" rotation="0" Ser_Port="false" id="Arduino Uno-4" itemtype="Arduino" x="-468" objectName="Arduino Uno-4" labelrot="0" labelx="0" Ser_Monitor="false" Show_id="true" labely="-20" hflip="1"/>
+ 
+Resistor-3: 
+<item y="-188" Resistance="220" vflip="1" valLabRot="0" valLabelx="-16" Show_res="true" valLabely="6" rotation="0" id="Resistor-3" itemtype="Resistor" x="-540" objectName="Resistor-3" labelrot="0" labelx="-12" Unit=" Ω" Show_id="false" labely="-24" hflip="1"/>
+ 
+Resistor-2: 
+<item y="-100" Resistance="220" vflip="1" valLabRot="0" valLabelx="-16" Show_res="true" valLabely="6" rotation="0" id="Resistor-2" itemtype="Resistor" x="-540" objectName="Resistor-2" labelrot="0" labelx="-12" Unit=" Ω" Show_id="false" labely="-24" hflip="1"/>
+ 
+Resistor-1: 
+<item y="-148" Resistance="220" vflip="1" valLabRot="0" valLabelx="-16" Show_res="true" valLabely="6" rotation="0" id="Resistor-1" itemtype="Resistor" x="-540" objectName="Resistor-1" labelrot="0" labelx="-12" Unit=" Ω" Show_id="false" labely="-24" hflip="1"/>
+ 
+Connector-10: 
+<item y="-100" vflip="1" valLabRot="0" pointList="-556,-100,-572,-100" valLabelx="0" valLabely="0" rotation="0" id="Connector-10" itemtype="Connector" x="-556" objectName="Connector-10" labelrot="0" labelx="-16" startpinid="Resistor-2-lPin" Show_id="false" labely="-24" hflip="1" endpinid="Led-7-lPin" enodeid="enode-10"/>
+ 
+Connector-11: 
+<item y="-148" vflip="1" valLabRot="0" pointList="-556,-148,-572,-148" valLabelx="0" valLabely="0" rotation="0" id="Connector-11" itemtype="Connector" x="-556" objectName="Connector-11" labelrot="0" labelx="-16" startpinid="Resistor-1-lPin" Show_id="false" labely="-24" hflip="1" endpinid="Led-6-lPin" enodeid="enode-11"/>
+ 
+Connector-12: 
+<item y="-188" vflip="1" valLabRot="0" pointList="-556,-188,-572,-188" valLabelx="0" valLabely="0" rotation="0" id="Connector-12" itemtype="Connector" x="-556" objectName="Connector-12" labelrot="0" labelx="-16" startpinid="Resistor-3-lPin" Show_id="false" labely="-24" hflip="1" endpinid="Led-5-lPin" enodeid="enode-12"/>
+ 
+Connector-13: 
+<item y="-148" vflip="1" valLabRot="0" pointList="-460,-148,-492,-148,-492,-100,-524,-100" valLabelx="0" valLabely="0" rotation="0" id="Connector-13" itemtype="Connector" x="-460" objectName="Connector-13" labelrot="0" labelx="-16" startpinid="Arduino Uno-4-PD7" Show_id="false" labely="-24" hflip="1" endpinid="Resistor-2-rPin" enodeid="enode-13"/>
+ 
+Connector-14: 
+<item y="-156" vflip="1" valLabRot="0" pointList="-460,-156,-508,-156,-508,-148,-524,-148" valLabelx="0" valLabely="0" rotation="0" id="Connector-14" itemtype="Connector" x="-460" objectName="Connector-14" labelrot="0" labelx="-16" startpinid="Arduino Uno-4-PD6" Show_id="false" labely="-24" hflip="1" endpinid="Resistor-1-rPin" enodeid="enode-14"/>
+ 
+Connector-15: 
+<item y="-164" vflip="1" valLabRot="0" pointList="-460,-164,-524,-164,-524,-188" valLabelx="0" valLabely="0" rotation="0" id="Connector-15" itemtype="Connector" x="-460" objectName="Connector-15" labelrot="0" labelx="-16" startpinid="Arduino Uno-4-PD5" Show_id="false" labely="-24" hflip="1" endpinid="Resistor-3-rPin" enodeid="enode-15"/>
+ 
+PlotterWidget-8: 
+<item cursor="" maximumSize="" enabled="true" minimumWidth="200" toolTip="" normalGeometry="" isActiveWindow="false" locale="" focusPolicy="0" size="" sizeIncrement="" minimumHeight="200" statusTip="" minimized="false" toolTipDuration="-1" updatesEnabled="true" maximumHeight="200" styleSheet="" width="200" minimumSizeHint="" childrenRect="" sizeHint="" pos="" windowIconText="" windowModified="false" font="Cantarell,11,-1,5,50,0,0,0,0,0" visible="false" baseSize="" windowTitle="" itemtype="Plotter" height="200" maximized="false" focus="false" acceptDrops="false" whatsThis="" rect="" tabletTracking="false" accessibleName="" layoutDirection="0" x="0" MaxVolt="500" accessibleDescription="" maximumWidth="1000" objectName="PlotterWidget-8" autoFillBackground="false" modal="false" childrenRegion="" windowModality="0" fullScreen="false" frameSize="" geometry="" windowOpacity="1" palette="" mouseTracking="false" windowFilePath="" contextMenuPolicy="1" inputMethodHints="0" y="0" sizePolicy="" windowIcon="" minimumSize="" frameGeometry="" MinVolt="-500"/>
+ 
+SerialPortWidget-9: 
+<item cursor="" maximumSize="" enabled="true" minimumWidth="0" toolTip="" normalGeometry="" isActiveWindow="false" locale="" focusPolicy="0" size="" sizeIncrement="" minimumHeight="0" statusTip="" minimized="false" toolTipDuration="-1" updatesEnabled="true" maximumHeight="170" styleSheet="" width="313" minimumSizeHint="" childrenRect="" sizeHint="" pos="" SettingsProp=",0,3,0,0,0" windowIconText="" windowModified="false" font="Cantarell,11,-1,5,50,0,0,0,0,0" visible="false" baseSize="" windowTitle="Settings" itemtype="SerialPort" height="141" maximized="false" focus="false" acceptDrops="false" whatsThis="" rect="" tabletTracking="false" accessibleName="" layoutDirection="0" x="0" accessibleDescription="" maximumWidth="450" objectName="SerialPortWidget-9" autoFillBackground="false" modal="false" childrenRegion="" windowModality="0" fullScreen="false" frameSize="" geometry="" windowOpacity="1" palette="" mouseTracking="false" windowFilePath="" contextMenuPolicy="1" inputMethodHints="0" y="0" sizePolicy="" windowIcon="" minimumSize="" frameGeometry=""/>
+ 
+</circuit>
